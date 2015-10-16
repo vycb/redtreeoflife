@@ -1,0 +1,25 @@
+{
+	"name": "redtreeoflife",
+	"description": "",
+	"version": "0.0.1",
+	"main": "./redtreeoflife.js",
+	"author": {
+		"name": "vycb",
+		"email": "vycb777@gmail.com"
+	},
+	"dependencies": {
+		"hiredis": ">=0.1.13",
+    "redis": "2.x"
+  },
+	"keywords": [],
+	"licenses": {
+		"type": "none"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/vycb/redtreeoflife.git"
+	},
+	"bugs": {
+		"url": "http://github.com/vycb/redtreeoflife/issues"
+	}
+}
