@@ -41,7 +41,7 @@ http.Server(function(req, res, next)
 		}
 		tol.search(query.sq,function(err, result)
 		{
-			res.write(vh.form({result:result||{}}));
+			res.write(vh.form({result:{r:result,sq:query.sq}}));
 			res.end();
 		});
 	}

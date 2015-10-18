@@ -57,7 +57,7 @@ exports.import = function()
 	});
 
 	fstrm.pipe(parser)
-}();
+};
 
 function Node(){
 	this.p = {id: 0};
