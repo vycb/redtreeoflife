@@ -9,7 +9,8 @@
 	},
 	"dependencies": {
 		"hiredis": ">=0.1.13",
-    "redis": "2.x"
+		"async": ">=1.x",
+    "redis": ">=2.x"
   },
 	"keywords": [],
 	"licenses": {
