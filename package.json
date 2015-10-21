@@ -1,26 +1,27 @@
 {
-	"name": "redtreeoflife",
-	"description": "",
-	"version": "0.0.1",
-	"main": "./redtreeoflife.js",
-	"author": {
-		"name": "vycb",
-		"email": "vycb777@gmail.com"
-	},
-	"dependencies": {
-		"hiredis": ">=0.1.13",
-		"async": ">=1.x",
-    "redis": ">=2.x"
+  "name": "redtreeoflife",
+  "description": "",
+  "version": "0.0.1",
+  "main": "./redtreeoflife.js",
+  "author": {
+    "name": "vycb",
+    "email": "vycb777@gmail.com"
   },
-	"keywords": [],
-	"licenses": {
-		"type": "none"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/vycb/redtreeoflife.git"
-	},
-	"bugs": {
-		"url": "http://github.com/vycb/redtreeoflife/issues"
-	}
+  "dependencies": {
+    "async": ">=1.x",
+    "hiredis": ">=0.1.13",
+    "redis": ">=2.x",
+    "split": "^1.0.0"
+  },
+  "keywords": [],
+  "licenses": {
+    "type": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vycb/redtreeoflife.git"
+  },
+  "bugs": {
+    "url": "http://github.com/vycb/redtreeoflife/issues"
+  }
 }

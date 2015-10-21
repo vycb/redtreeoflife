@@ -1,7 +1,6 @@
 var client, node, pnode = new Node(), ct, pt, ppt, cct;
 
-exports.import = function()
-{
+exports.import = function(){
 	redis = require("redis"),
 //		client = redis.createClient("redis://vycb777@gmail.com:1qaz2wsx@pub-redis-11548.us-east-1-3.2.ec2.garantiadata.com:11548"),
 //		client = redis.createClient("redis://rediscloud:jVuF0mshqeDmSSxc@pub-redis-13088.us-east-1-4.6.ec2.redislabs.com:13088",{parser:"hiredis"}),
@@ -13,6 +12,10 @@ exports.import = function()
 	parser = sax.createStream(true, {trim: true})
 			;
 	client.select(1);
+
+	String.prototype.nonl = function(){
+		return this.replace(/(\r\n|\n|\r)/gm,"")
+	}
 
 	parser.on("opentag", function(tag){
 		ppt = pt;
@@ -32,13 +35,13 @@ exports.import = function()
 	});
 	parser.on("cdata", function(tag){
 		if(ct.name === "NAME" && pt.name === "NODE"){
-			node.name = tag;
+			node.name = (""+tag.nonl());
 		}
 		else if(ct.name === "DESCRIPTION"){
-			node.description = tag;
+			node.description = (""+tag.nonl());
 		}
 		else if(ct.name === "NAME" && pt.name === "OTHERNAME"){
-			node.othername += (node.othername ? ", " : "") + tag;
+			node.othername += (node.othername ? ", " : "") + tag.nonl();
 		}
 	});
 	parser.on("closetag", function(tag)
@@ -71,7 +74,6 @@ function save()
 {
 	client.hmset
 	(orempty(node.name)+":"+node.id, "id", node.id, "parent",orempty(node.p.name)+":"+node.p.id, "description", node.description, "othername", node.othername);
-	console.log(node.name);
 }
 
 function orempty(val){
