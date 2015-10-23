@@ -1,20 +1,26 @@
+/* global __dirname, exports */
+
 var client, node, pnode = new Node(), ct, pt, ppt, cct;
 
 exports.import = function(){
 	redis = require("redis"),
 //		client = redis.createClient("redis://vycb777@gmail.com:1qaz2wsx@pub-redis-11548.us-east-1-3.2.ec2.garantiadata.com:11548"),
 //		client = redis.createClient("redis://rediscloud:jVuF0mshqeDmSSxc@pub-redis-13088.us-east-1-4.6.ec2.redislabs.com:13088",{parser:"hiredis"}),
-	client = redis.createClient("redis://localhost", {parser: "hiredis"}),
-	fs = require('fs'),
-	redis = require("redis"),
-	fstrm = fs.createReadStream(__dirname + '/tol.xml'),
-	sax = require('sax'),
-	parser = sax.createStream(true, {trim: true})
-			;
+		client = redis.createClient("redis://localhost", {parser: "hiredis"}),
+		fs = require('fs'),
+		redis = require("redis"),
+		fstrm = fs.createReadStream(__dirname + '/tol.xml'),
+		sax = require('sax'),
+		parser = sax.createStream(true, {trim: true})
+		;
 	client.select(1);
 
 	String.prototype.nonl = function(){
-		return this.replace(/(\r\n|\n|\r)/gm,"")
+		return this.replace(/(\r\n|\n|\r)/gm, "")
+	}
+
+	String.prototype.keyfmt = function(){
+		return this.replace(/[^a-z0-9_\:\-\s]/gmi, "").replace(/\s+/g, " ");
 	}
 
 	parser.on("opentag", function(tag){
@@ -35,10 +41,10 @@ exports.import = function(){
 	});
 	parser.on("cdata", function(tag){
 		if(ct.name === "NAME" && pt.name === "NODE"){
-			node.name = (""+tag.nonl());
+			node.name = ("" + tag.nonl().keyfmt());
 		}
 		else if(ct.name === "DESCRIPTION"){
-			node.description = (""+tag.nonl());
+			node.description = ("" + tag.nonl());
 		}
 		else if(ct.name === "NAME" && pt.name === "OTHERNAME"){
 			node.othername += (node.othername ? ", " : "") + tag.nonl();
@@ -60,7 +66,7 @@ exports.import = function(){
 	});
 
 	fstrm.pipe(parser)
-};
+}()
 
 function Node(){
 	this.p = {id: 0};
@@ -73,7 +79,7 @@ function Node(){
 function save()
 {
 	client.hmset
-	(orempty(node.name)+":"+node.id, "id", node.id, "parent",orempty(node.p.name)+":"+node.p.id, "description", node.description, "othername", node.othername);
+		(orempty(node.name) + ":" + node.id, "id", node.id, "parent", orempty(node.p.name) + ":" + node.p.id, "description", node.description, "othername", node.othername);
 }
 
 function orempty(val){
