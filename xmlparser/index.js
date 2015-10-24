@@ -1,8 +1,10 @@
-/* global __dirname, exports */
+/* global __dirname, exports, process */
 
-var client, node, pnode = new Node(), ct, pt, ppt, cct;
+var client, node, pnode = new Node(), ct, pt, ppt;
 
-exports.import = function(){
+if(process.argv[2] === "-i") parsexml()
+
+function parsexml(){
 	redis = require("redis"),
 //		client = redis.createClient("redis://vycb777@gmail.com:1qaz2wsx@pub-redis-11548.us-east-1-3.2.ec2.garantiadata.com:11548"),
 //		client = redis.createClient("redis://rediscloud:jVuF0mshqeDmSSxc@pub-redis-13088.us-east-1-4.6.ec2.redislabs.com:13088",{parser:"hiredis"}),
@@ -50,26 +52,24 @@ exports.import = function(){
 			node.othername += (node.othername ? ", " : "") + tag.nonl();
 		}
 	});
-	parser.on("closetag", function(tag)
-	{
-		cct = tag;
+	parser.on("closetag", function(tag){
 		if([/*"OTHERNAMES","NODES",*/"NODE"].indexOf(tag) > -1){
 			save();
 		}
 
-		if(cct === "NODES"){
-			pnode = node.p.p;
+		if(tag === "NODES"){
+			pnode = pnode.p;
 		}
-		else if(cct === "NODE"){
+		else if(tag === "NODE"){
 			delete node;
 		}
 	});
 
 	fstrm.pipe(parser)
-}()
+}
 
 function Node(){
-	this.p = {id: 0};
+	this.p = {id: 0,p:{id:0}};
 	this.id = 0;
 	this.name = "";
 	this.othername = "";
@@ -85,3 +85,5 @@ function save()
 function orempty(val){
 	return (!val ? "n" : val);
 }
+
+exports.import = parsexml;

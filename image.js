@@ -1,8 +1,10 @@
+/* global exports */
+
 /**
  * Created by vach on 9/10/2015.
  */
-var mysql = require('mysql'),
-		pool,sql = " \
+//var mysql = require('mysql'),
+		pool={},sql = " \
 CREATE TABLE `image` ( \
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT, \
   `name` varchar(130) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL, \
@@ -11,14 +13,14 @@ CREATE TABLE `image` ( \
   PRIMARY KEY (`id`) \
 ) ENGINE=MyISAM";
 
-pool = mysql.createPool(/*{
+/*pool = mysql.createPool({
 	host: 'mysql2.000webhost.com',
 	timeout: 20000,
 	user: 'a1078855_t',
 	database: 'a1078855_t',
 	password: '1q2w3e'
-}*/"mysql://b92008d82e840b:8f909908@us-cdbr-iron-east-03.cleardb.net/heroku_868ef3a051687a3?reconnect=true");
-
+}//"mysql://b92008d82e840b:8f909908@us-cdbr-iron-east-03.cleardb.net/heroku_868ef3a051687a3?reconnect=true");
+*/
 exports.findAll = function(callback)
 {
 	pool.getConnection(function(err, con)
