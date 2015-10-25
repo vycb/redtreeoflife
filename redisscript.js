@@ -26,6 +26,38 @@ client.select(1);
 
 (function populateDbSet(cb){
 	this.db = client
+	script = "\
+    local res\n\
+		res = redis.call('select',1)\n\
+		res = redis.call('KEYS','*')\n\
+		local hash_data = {}\n\
+		for idx = 1, #res, 1 do\n\
+			local hash = redis.call('HGETALL', res[idx])\n\
+			for i = 1, #hash, 2 do\n\
+				if hash[i] == 'parent' and hash[i+1] == ARGV[1] then\n\
+					hash_data[idx] =  res[idx]\n\
+				end\n\
+			end\n\
+		end\n\
+    cjson.encode_sparse_array(true)\n\
+    return cjson.encode(hash_data)\n\
+    --return cmsgpack.pack(hash_data)\n\
+";//
+	this.db.eval(script, [0,"Life on Earth:1"], function(err, res){
+		console.log([err, res]);
+		process.exit(0)
+	})
+	/*		client.script("load", script, function(err, result){
+	 console.log([err, result]);
+	 client.evalsha(result, 0, function(err, res){
+	 console.log([err, res]);
+
+
+	 })
+	 });*/
+})()
+function populateDbSet(cb){
+	this.db = client
 	script = " \
     local res \
 		res = redis.call('select',0) \
@@ -49,7 +81,7 @@ client.select(1);
 
 	 })
 	 });*/
-})()
+}
 
 /*async.doWhilst(
  function(callback){

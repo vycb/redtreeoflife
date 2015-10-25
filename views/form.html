@@ -1,6 +1,7 @@
 <?- include head.html -?>
 <?
 var sq = result.sq
+ch = result.ch
 result = result.r
 ;
 ?>
@@ -37,12 +38,19 @@ result = result.r
 	</div><br/>
 	<input type="submit"/>
 </form>
-
+<div id="LE">
+	<div class="">Life on Earth:1</div>
+	<?for(var k in result){?>
+	<a class="ch frst" href="javascript:"><?=orempty(result[k].v)?></a>(<?=result[k].c?>)
+	<?}?>
+</div>
 <div id="searchres">
-<?for(var i in result){?>
+<?
+if(ch == 0){
+for(var i in result){?>
 <div><a id="n<?=i?>" href="javascript:"><?=result[i]?></a>
 	<div id="n<?=i?>c"></div>
 </div>
-<?}?>
+<?}}?>
 </div>
 <?- include footer.html -?>
