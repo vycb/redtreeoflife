@@ -1,9 +1,5 @@
-<div>
-<?=result.description?>
-<?if(result.description){?></br><?}?>
-<?=result.othername?>
-<?if(result.othername){?></br><?}?>
+<?if(result.description!==""){?><?=result.description ?></br><?}?>
+<?if(result.othername !==""){?><?=result.othername?></br><?}?>
 <br>
-<a href="javascript:" id="p<?=result.id?>"><?=result.parent?></a>
-</div>
+<a href="javascript:" class="parnt" id="p<?=result.id?>"><?=result.parent?></a>
 <div id="p<?=result.id?>c"></div>

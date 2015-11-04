@@ -1,15 +1,13 @@
-<?- include head.html -?>
-<?
+<?- include head.html -?><?
 var sq = result.sq
 ch = result.ch
 result = result.r
-;
 ?>
 <form onsubmit="javascript:var file=$('#file'); if(!file.val()){
 	file.remove()}" method="get" enctype="multipart/form-data" action="/tol/s/">
 
 	<label for="author">Search: </label>
-	<input type="text" name="sq" value="<?=orempty(sq)?>"/>
+	<input type="text" name="sq" id="sq" value="<?=orempty(sq)?>"/>
 	<br/>
 
 <? if(result.r){?>
@@ -17,9 +15,12 @@ result = result.r
 	<br>
 <?}?>
 
-	<label for="content">Content: </label>
+	<label for="content">Scan: </label>
+	<input name="scan" id="scan" value="<?=orempty(result.scan,0)?>"/>
 	<br/>
-	<textarea rows="5" cols="50" name="content"><?=orempty(result.mimetype)?></textarea>
+	<label for="content">Count: </label>
+	<input name="count" id="count" value="<?=orempty(result.count,10000)?>"/>
+<?/*?>
 	<br/>
 	<label for="image">Image(optional): </label>
 
@@ -37,12 +38,19 @@ result = result.r
 		<input type="file" name="image" id="file"/>
 	</div><br/>
 	<input type="submit"/>
+	<?*/?>
 </form>
+<div id="paging">
+	<a class="next" href="javascript:">Next</a>
+	<div id="pcnt"></div>
+	<a class="next" href="javascript:">Next</a>
+</div>
 <div id="LE">
-	<div class="">Life on Earth:1</div>
-	<?for(var k in result){?>
+	<h1 class="">Life on Earth:1</h1>
+<?if(sq === 'Life on Earth:1'){
+	for(var k in result){?>
 	<a class="ch frst" href="javascript:"><?=orempty(result[k].v)?></a>(<?=result[k].c?>)
-	<?}?>
+	<?}}?>
 </div>
 <div id="searchres">
 <?

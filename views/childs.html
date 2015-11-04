@@ -1,7 +1,7 @@
 <?
 var sq = result.sq,
 result = result.r
-?><b><?=sq?></b><a class="chrm" href="javascript:">-</a><br><?
+?><b><?=sq?><a class="chrm" href="javascript:"> - </a></b><br><?
 for(var k in result){?>
-<a class="ch" href="javascript:"><?=orempty(result[k].v)?></a>(<?=result[k].c?>)
+<a class="ch" href="javascript:"><?=orempty(result[k].v)?></a><span class="<?=result[k].c >0?'bld':'sm'?>">(<?=result[k].c?>)</span>
 <?}?>

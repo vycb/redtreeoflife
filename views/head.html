@@ -4,13 +4,21 @@
 	<meta charset="UTF-8">
 	<title>Blog's upload data</title>
 	<script type="application/javascript" src="/public/form.js"></script>
+	<style type="text/css">
+		.bld{font-weight: 100}
+		.sm{font-size:70%}
+		.dtls{position: absolute;width:350px;padding:10px;border:1px solid #63C563;background-color: black;color: white; overflow-y: scroll; height: 300px;}
+		.dtlr{display:none}
+		.cl{float: right;}
+	</style>
 </head>
 <body>
+<div>
 <? if(typeof noHomeLink === 'undefined'){?>
-<div><a href="/">Home</a>
+	<a href="/">Home</a>
 	<?}?>
 
-	<? if(typeof noFormLink === 'undefined'){?>
+<?/* if(typeof noFormLink === 'undefined'){?>
 	<a href="/form">Add Image</a>
+<?}*/?>
 </div>
-<?}?>
