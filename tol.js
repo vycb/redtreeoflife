@@ -1,11 +1,15 @@
-var redis=require("redis"),
+/*jshint esnext */
+/*jslint white:true */
+/* global local, end, cjson, out, script */
+
+var redis = require("redis"),
 	/*		client = redis.createClient("redis://vycb777@gmail.com:1qaz2wsx@pub-redis-11548.us-east-1-3.2.ec2.garantiadata.com:11548"),
 	 client = redis.createClient("redis://rediscloud:jVuF0mshqeDmSSxc@pub-redis-13088.us-east-1-4.6.ec2.redislabs.com:13088",{parser:"hiredis"}),*/
 	client=redis.createClient("redis://localhost", {parser: "hiredis"})
 	;
 client.select(1);
-exports.childs=function(sq, callback){
-	if(!sq)sq="Life on Earth:1"
+exports.childs = function(sq, callback){
+	if(!sq) sq="Life on Earth:1"
 
 	var script=`
     local res
@@ -46,6 +50,7 @@ exports.childs=function(sq, callback){
     cjson.encode_sparse_array(true)
     return cjson.encode(out)
 `;
+
 	client.eval(script, [0, sq], function(err, res){
 		if(err)
 			console.error(err)
@@ -70,5 +75,5 @@ exports.search=function(sq, callback){
 exports.getParentById=function(sq, callback){
 	if(!sq)return callback("empty", {})
 
-	client.hgetall(sq, callback);
-};
+	client.hgetall(sq, callback)
+}

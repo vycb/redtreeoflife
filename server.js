@@ -1,4 +1,5 @@
 /* global __dirname */
+/*jslint white: true, node: true */
 
 var http=require('http'),
 	compression = require('compression'),
@@ -12,17 +13,17 @@ var http=require('http'),
 	serve=estatic({root: __dirname+'/public', serverHeader: false,
 		showDir: true, autoIndex: false, baseDir: "/public"}),
 	urlParam=function(templ, url){
-		var regexp=pathRegexp(templ, [])
-		return regexp.exec(url)
+		var regexp=pathRegexp(templ, []);
+		return regexp.exec(url);
 	}, q={sq: ""},
 
 server = http.createServer(function(req, res){
-	var _compression = compression({treshold:500,level:-1})
+	var _compression = compression({treshold:500,level:-1});
 	_compression(req, res, function(err){
 		if(err){
-			res.statusCode = err.status || 500
-			res.end(err.message)
-			return
+			res.statusCode = err.status || 500;
+			res.end(err.message);
+			return;
 		}
 		res.setHeader('Content-Type', 'text/hltm')
 		hendlers(req, res)
